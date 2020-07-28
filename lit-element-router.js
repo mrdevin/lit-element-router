@@ -131,43 +131,47 @@ export function outlet(base) {
         }
 
         outlet() {
-            function remove(event){
+            const remove = function(event){
                 event.target.removeAttribute('leaving');
                 event.target.removeAttribute('entering');
+                event.target.removeEventListener('transitionend',remove);
+                event.target.removeEventListener('animationend',remove);
             }
             Array.from(this.querySelectorAll(`[route]`)).map((active) => {
-                active.removeEventListener('transitionend',remove);
-                active.removeEventListener('animationend',remove);
+
+                if(!active.hasAttribute('hidden')){
+                    active.setAttribute('leaving', '');
+                    active.addEventListener('transitionend', remove);
+                    active.addEventListener('animationend', remove);
+                }
                 active.setAttribute('hidden', '');
-                active.setAttribute('leaving', '');
-                active.addEventListener('transitionend', remove));
-                active.addEventListener('animationend', remove));
-                
             });
             Array.from(this.shadowRoot.querySelectorAll(`[route]`)).map((active) => {
-                active.removeEventListener('transitionend',remove);
-                active.removeEventListener('animationend',remove);
+
+                if(!active.hasAttribute('hidden')){
+                    active.setAttribute('leaving', '');
+                    active.addEventListener('transitionend', remove);
+                    active.addEventListener('animationend', remove);
+                }
                 active.setAttribute('hidden', '');
-                active.setAttribute('leaving', '');
-                active.addEventListener('transitionend', remove));
-                active.addEventListener('animationend', remove));
             });
             if (this.activeRoute) {
                 Array.from(this.querySelectorAll(`[route~=${this.activeRoute}]`)).map((active) => {
-                    active.removeEventListener('transitionend',remove);
-                    active.removeEventListener('animationend',remove);
+                    if(active.hasAttribute('hidden')){
+                        active.setAttribute('entering', '');
+                        active.addEventListener('transitionend', remove);
+                        active.addEventListener('animationend', remove);
+                    }
                     active.removeAttribute('hidden');
-                    active.setAttribute('entering', '');
-                    active.addEventListener('transitionend', remove));
-                    active.addEventListener('animationend', remove));
+
                 });
                 Array.from(this.shadowRoot.querySelectorAll(`[route~=${this.activeRoute}]`)).map((active) => {
-                    active.removeEventListener('transitionend',remove);
-                    active.removeEventListener('animationend',remove);
+                    if(active.hasAttribute('hidden')){
+                        active.setAttribute('entering', '');
+                        active.addEventListener('transitionend', remove);
+                        active.addEventListener('animationend', remove);
+                    }
                     active.removeAttribute('hidden');
-                    active.setAttribute('entering', '');
-                    active.addEventListener('transitionend', remove));
-                    active.addEventListener('animationend', remove));
                 });
             }
         }
