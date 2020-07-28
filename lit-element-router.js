@@ -131,18 +131,43 @@ export function outlet(base) {
         }
 
         outlet() {
+            function remove(event){
+                event.target.removeAttribute('leaving');
+                event.target.removeAttribute('entering');
+            }
             Array.from(this.querySelectorAll(`[route]`)).map((active) => {
+                active.removeEventListener('transitionend',remove);
+                active.removeEventListener('animationend',remove);
                 active.setAttribute('hidden', '');
+                active.setAttribute('leaving', '');
+                active.addEventListener('transitionend', remove));
+                active.addEventListener('animationend', remove));
+                
             });
             Array.from(this.shadowRoot.querySelectorAll(`[route]`)).map((active) => {
+                active.removeEventListener('transitionend',remove);
+                active.removeEventListener('animationend',remove);
                 active.setAttribute('hidden', '');
+                active.setAttribute('leaving', '');
+                active.addEventListener('transitionend', remove));
+                active.addEventListener('animationend', remove));
             });
             if (this.activeRoute) {
                 Array.from(this.querySelectorAll(`[route~=${this.activeRoute}]`)).map((active) => {
+                    active.removeEventListener('transitionend',remove);
+                    active.removeEventListener('animationend',remove);
                     active.removeAttribute('hidden');
+                    active.removeAttribute('entering');
+                    active.addEventListener('transitionend', remove));
+                    active.addEventListener('animationend', remove));
                 });
                 Array.from(this.shadowRoot.querySelectorAll(`[route~=${this.activeRoute}]`)).map((active) => {
-                    ctive.removeAttribute('hidden');
+                    active.removeEventListener('transitionend',remove);
+                    active.removeEventListener('animationend',remove);
+                    active.removeAttribute('hidden');
+                    active.removeAttribute('entering');
+                    active.addEventListener('transitionend', remove));
+                    active.addEventListener('animationend', remove));
                 });
             }
         }
