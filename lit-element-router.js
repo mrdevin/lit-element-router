@@ -132,17 +132,17 @@ export function outlet(base) {
 
         outlet() {
             Array.from(this.querySelectorAll(`[route]`)).map((active) => {
-                active.style.display = "none";
+                active.setAttribute('hidden', '');
             });
             Array.from(this.shadowRoot.querySelectorAll(`[route]`)).map((active) => {
-                active.style.display = "none";
+                active.setAttribute('hidden', '');
             });
             if (this.activeRoute) {
                 Array.from(this.querySelectorAll(`[route~=${this.activeRoute}]`)).map((active) => {
-                    active.style.display = "";
+                    active.removeAttribute('hidden');
                 });
                 Array.from(this.shadowRoot.querySelectorAll(`[route~=${this.activeRoute}]`)).map((active) => {
-                    active.style.display = "";
+                    ctive.removeAttribute('hidden');
                 });
             }
         }
