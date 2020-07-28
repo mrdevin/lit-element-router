@@ -157,7 +157,7 @@ export function outlet(base) {
                     active.removeEventListener('transitionend',remove);
                     active.removeEventListener('animationend',remove);
                     active.removeAttribute('hidden');
-                    active.removeAttribute('entering');
+                    active.setAttribute('entering', '');
                     active.addEventListener('transitionend', remove));
                     active.addEventListener('animationend', remove));
                 });
@@ -165,7 +165,7 @@ export function outlet(base) {
                     active.removeEventListener('transitionend',remove);
                     active.removeEventListener('animationend',remove);
                     active.removeAttribute('hidden');
-                    active.removeAttribute('entering');
+                    active.setAttribute('entering', '');
                     active.addEventListener('transitionend', remove));
                     active.addEventListener('animationend', remove));
                 });
